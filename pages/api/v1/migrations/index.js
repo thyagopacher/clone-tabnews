@@ -4,6 +4,7 @@ import database from "infra/database.js";
 
 export default async function migrations(request, response) {
   const dbClient = await database.getNewClient();
+  
   const defaultMigrationsOptions = {
     dbClient: dbClient,
     dryRun: true,
@@ -25,7 +26,7 @@ export default async function migrations(request, response) {
     });
 
     await dbClient.end();
-    
+
     if (migratedMigrations.length > 0) {
       response.status(201).json(migratedMigrations);
     }
